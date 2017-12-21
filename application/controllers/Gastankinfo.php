@@ -24,5 +24,24 @@ class Gastankinfo extends CI_Controller {
 		
 		$this->load->view('/layout/footer');
 	}
+	public function return(){
+		$this->load->model('Mod_Gastank');
+		$gas_barcode_array = $this->input->post('gastankInfo');
+
+		for($i = 0 ; $i < count($gas_barcode_array); $i++){
+			if ($gas_barcode_array[$i] != "Sell"){
+				$this->Mod_Gastank->updateStatus($gas_barcode_array[$i]);
+
+			}
+			
+		}
+		redirect(base_url("gastankinfo/"));
+	}
+	public function gastankHistory($barcode){
+		$this->load->model('Mod_Gastank');
+		$result['history'] = $this->Mod_Gastank->getGasHistory($barcode);
+		
+		$this->load->view('gastank_history',$result);
+	}
 	
 }

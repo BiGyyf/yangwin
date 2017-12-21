@@ -23,6 +23,7 @@ class Order_record extends CI_Controller {
 
 		parent::__construct();
 		$this->load->helper('url');
+		
 		$this->load->view('/layout/header');
 		$this->load->view('/layout/nav');
 		
@@ -76,25 +77,36 @@ class Order_record extends CI_Controller {
 		$gas_barcode_array = $this->input->post('customer_create_gasinfo');
 		$phone = $this->input->post('customer_create_phone');
 		$last_id = $this->Mod_Orderlist->createBill($phone); // 建立
-
-		//逐一新增桶子，若重複編號則取消
-		for ($i = 0 ; $i < count($gas_barcode_array);$i++){
-			$result = $this->Mod_Orderlist->createBillDetail($last_id,$gas_barcode_array[$i],$phone);
-			echo $result."  result";
-			if ($result == 0){
-				$this->Mod_Orderlist->disableBill($last_id,$gas_barcode_array[$i-1]);
-				echo "輸入重複編號";
-				$this->Mod_Gastank->deleteHistory($gas_barcode_array[$i]);
-			}
-			//建立桶子歷史資訊
-			$data = [
-				'gastank_barcode' => $gas_barcode_array[$i],
-				'customer_phone' => $phone
+		$barcode_unique = array_unique($gas_barcode_array);
+		if ( count($gas_barcode_array) != count($barcode_unique) ){
+    			
+			$data =[
+				'title' => "名稱重複",
+				'subtilte' => "請勿新增重複瓦斯桶",
+				'url' => ""
 			];
-			$this->Mod_Gastank->createHistory($data);
+			$this->load->view('/layout/alert',$data);
+
+		}else{
+
+			//逐一新增桶子，若重複編號則取消
+			for ($i = 0 ; $i < count($gas_barcode_array);$i++){
+				$result = $this->Mod_Orderlist->createBillDetail($last_id,$gas_barcode_array[$i],$phone);
+			
+			//建立桶子歷史資訊
+				$data = [
+					'orderlist_id' => $last_id,
+					'gastank_barcode' => $gas_barcode_array[$i],
+					'customer_phone' => $phone
+				];
+				$this->Mod_Gastank->createHistory($data);
+			}
+			
 		}
 		
+
 		//$result = $this->Mod_Gastank->();
 	}
+	
 	
 }

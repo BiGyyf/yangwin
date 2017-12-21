@@ -27,14 +27,14 @@
                   </thead>
                   <tbody>
                   
-                     <?php foreach ($result as $value): 
-                     ?> 
+                     <?php foreach ($result as $value): ?> 
                      <tr>
-                        <td><?php echo "<a href=".base_url('order_record/detail/'.$value['id']).">".$value['id']."</a>"; ?></td>
-                        <td><?php echo $value['date']; ?></td>
-                        <td><?php echo $value['name']; ?></td>
-                        <td><?php echo $value['phone']; ?></td>
-                        <td><?php echo $value['address']; ?></td>
+                        <td><a href="<?= base_url('order_record/detail/'.$value['id'])?>"><?= $value['id']?></a></td>
+                        <!-- <td><?//php echo "<a href=".base_url('order_record/detail/'.$value['id']).">".$value['id']."</a>"; ?></td> -->
+                        <td><?= $value['date']; ?></td>
+                        <td><?= $value['name']; ?></td>
+                        <td><?= $value['phone']; ?></td>
+                        <td><?= $value['address']; ?></td>
                         
 
                         
@@ -47,7 +47,8 @@
                               <ul class="dropdown-menu">
                                  <li role="separator" class="divider"></li>
 
-                                 <li><a id="<?php echo $value['id'];?>"  onclick="delete_orderlist(<?php echo "'".$value['id']."'"; ?>)">刪除</a></li>
+                                 <!-- <li><a id="<?php //echo $value['id'];?>"  onclick="delete_orderlist(<?php //echo "'".$value['id']."'"; ?>)">刪除</a></li> -->
+                                 <li><a id="<?= $value['id'] ?>" onclick="delete_orderlist('<?= $value['id']  ?>')">刪除 </a></li>
                               </ul>
                            </div>
                         </td>
@@ -68,7 +69,7 @@
 <script>
    function delete_orderlist($var) {
        if(confirm("請問是否刪除"+$var+" 訂單所有資訊")){
-            document.location.href="<?php echo base_url('order_record/delete_orderlist/');?>"+$var;
+            document.location.href="<?= base_url('order_record/delete_orderlist/');?>"+$var;
        }else{
             alert("取消");
        }

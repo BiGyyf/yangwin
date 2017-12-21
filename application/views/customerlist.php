@@ -3,7 +3,7 @@
    <div class="row">
       <div class="panel panel-default">
          <div class="panel-heading">
-            客戶資訊
+            <h4>客戶資訊</h4>
             <button type="button" class="btn btn-outline btn-success" data-toggle="modal" data-target="#create_customer">新增客戶</button>
             
          </div>
@@ -26,11 +26,11 @@
                   <tbody>
                      <?php foreach ($result as $value): ?> 
                      <tr>
-                        <td><?php echo $value['id']; ?></td>
-                        <td><?php echo $value['name']; ?></td>
-                        <td><a href="<?php echo base_url('customer/info/'.$value['phone']);?>"><?php echo $value['phone']; ?></a></td>
-                        <td><?php echo $value['address']; ?></td>
-                         <td><?php echo $value['comment']; ?></td>
+                        <td><?= $value['id']; ?></td>
+                        <td><?= $value['name']; ?></td>
+                        <td><a href="<?= base_url('customer/info/'.$value['phone']);?>"><?= $value['phone']; ?></a></td>
+                        <td><?= $value['address']; ?></td>
+                         <td><?= $value['comment']; ?></td>
                         
                         <td>
                            <!-- Single button -->
@@ -39,10 +39,10 @@
                               操作 <span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu">
-                                 <li><a href="<?php echo base_url('customer/edit_customer/'.$value['phone']);?>">編輯</a></li>
+                                 <li><a href="<?= base_url('customer/edit_customer/'.$value['phone']);?>">編輯</a></li>
                                  <!-- <li><a href="">列印</a></li> -->
                                  <li role="separator" class="divider"></li>
-                                 <li><a id="<?php echo $value['phone'];?>"  onclick="delete_customer(<?php echo "'".$value['phone']."'"; ?>)">刪除</a></li>
+                                 <li><a id="<?= $value['phone'];?>"  onclick="delete_customer(<?php echo "'".$value['phone']."'"; ?>)">刪除</a></li>
                                  
                               </ul>
                            </div>

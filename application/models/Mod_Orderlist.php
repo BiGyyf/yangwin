@@ -96,14 +96,14 @@ class Mod_Orderlist extends CI_Model {
         public function createBillDetail($orderlist_id,$barcode,$phone){
                 
 
-                $query = $this->db->get_where('orderlist_view',array(
-                        'id' => $orderlist_id,
-                        'gastank_barcode' => $barcode, 
-                        'phone' => $phone
-                ));
-                foreach ($query->result_array() as $key) {
-                       return 0;
-                }
+                // $query = $this->db->get_where('orderlist_view',array(
+                //         'id' => $orderlist_id,
+                //         'gastank_barcode' => $barcode, 
+                //         'phone' => $phone
+                // ));
+                // foreach ($query->result_array() as $key) {
+                //        return 0;
+                // }
 
 
                 //更新桶子的借用者
